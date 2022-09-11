@@ -1,22 +1,19 @@
-import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
-import { Layout } from './components/Layout';
-import './custom.css';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import AppRoutes from "./routers/AppRoutes";
+import AdminLayout from "./layouts/Layout";
 
-export default class App extends Component {
-  static displayName = App.name;
+const App = () => {
+  return (
+    <AdminLayout>
+      <Routes>
+        {AppRoutes.map((route, index) => {
+          const { element, ...rest } = route;
+          return <Route key={index} {...rest} element={element} />;
+        })}
+      </Routes>
+    </AdminLayout>
+  );
+};
 
-  render() {
-    return (
-      <Layout>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
-      </Layout>
-    );
-  }
-}
+export default App;
