@@ -6,7 +6,7 @@ import {
   PieChartOutlined,
   AccountBookOutlined,
 } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu } from "antd";
+import { Layout, Menu } from "antd";
 import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -129,15 +129,6 @@ const AdminLayout = (props) => {
             padding: "0 24px 24px",
           }}
         >
-          <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
           <Content
             className="site-layout-background"
             style={{
