@@ -1,4 +1,5 @@
 import { About } from "../views/about";
+import CategoryView from "../views/category";
 import { Dashboard } from "../views/dashboard";
 
 const AppRoutes = [
@@ -7,7 +8,11 @@ const AppRoutes = [
     element: <Dashboard />,
   },
   {
-    path: "/about",
+    path: "/admin/categories",
+    element: <CategoryView />,
+  },
+  {
+    path: "/admin/about",
     element: <About />,
   },
 ];

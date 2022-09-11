@@ -9,6 +9,8 @@ import {
 import { Breadcrumb, Layout, Menu } from "antd";
 import React, { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 const { Header, Content, Sider, Footer } = Layout;
 
 function getItem(label, key, icon, children) {
@@ -38,14 +40,69 @@ const sideMenus = [
   getItem("Giới thiệu", "5", <AccountBookOutlined />),
 ];
 
+const mapPrimaryMenu = {
+  1: "/",
+  2: "/admin/products",
+  3: "/admin/orders",
+};
+
+const mapLinkSideMenu = {
+  1: "/",
+  2: "/admin/products",
+  "2-1": "/admin/products",
+  "2-2": "/admin/products/create",
+  "2-3": "/admin/categories",
+  3: "/admin/orders",
+  4: "/admin/users",
+  5: "/admin/about",
+};
+
 const AdminLayout = (props) => {
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
+
+  const handleOnPrimaryMenuItemSelected = ({
+    item,
+    key,
+    keyPath,
+    selectedKeys,
+    domEvent,
+  }) => {
+    const link = mapPrimaryMenu[key] || null;
+
+    if (link) {
+      navigate(link);
+    } else {
+      alert("404");
+    }
+  };
+
+  const handleOnSiderMenuItemSelected = ({
+    item,
+    key,
+    keyPath,
+    selectedKeys,
+    domEvent,
+  }) => {
+    const link = mapLinkSideMenu[key] || null;
+
+    if (link) {
+      navigate(link);
+    } else {
+      alert("404");
+    }
+  };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header className="header">
         <div className="logo" />
-        <Menu theme="dark" mode="horizontal" items={primaryMenus} />
+        <Menu
+          onSelect={handleOnPrimaryMenuItemSelected}
+          theme="dark"
+          mode="horizontal"
+          items={primaryMenus}
+        />
       </Header>
       <Layout>
         <Sider
@@ -64,6 +121,7 @@ const AdminLayout = (props) => {
               borderRight: 0,
             }}
             items={sideMenus}
+            onSelect={handleOnSiderMenuItemSelected}
           />
         </Sider>
         <Layout
