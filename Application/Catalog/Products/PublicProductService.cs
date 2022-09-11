@@ -21,10 +21,8 @@ namespace eShopSolutionReact.Application.Catalog.Products
         public async Task<List<ProductViewModel>> GetAll()
         {
             var query = from p in _context.Products
-                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId
-                        join c in _context.Categories on pic.CategoryId equals c.Id
-                        select new { p, pt, pic };
+                        join c in _context.Categories on p.CategoryId equals c.Id
+                        select new { p, c };
 
             int totalRow = await query.CountAsync();
 
@@ -32,16 +30,11 @@ namespace eShopSolutionReact.Application.Catalog.Products
                 .Select(x => new ProductViewModel()
                 {
                     Id = x.p.Id,
-                    Name = x.pt.Name,
+                    Name = x.p.Name,
                     DateCreated = x.p.DateCreated,
-                    Description = x.pt.Description,
-                    Details = x.pt.Details,
-                    LanguageId = x.pt.LanguageId,
+                    Description = x.p.Description,
                     OriginalPrice = x.p.OriginalPrice,
                     Price = x.p.Price,
-                    SeoAlias = x.pt.SeoAlias,
-                    SeoDescription = x.pt.SeoDescription,
-                    SeoTitle = x.pt.SeoTitle,
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount
                 })
@@ -54,14 +47,12 @@ namespace eShopSolutionReact.Application.Catalog.Products
         {
             // 1. Select & Join
             var query = from p in _context.Products
-                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId
-                        join c in _context.Categories on pic.CategoryId equals c.Id
-                        select new { p, pt, pic };
+                        join c in _context.Categories on p.CategoryId equals c.Id
+                        select new { p, c };
 
             // 2. Filter
             if (request.CategoryId.HasValue && request.CategoryId > 0)
-                query = query.Where(x => x.pic.CategoryId == request.CategoryId);
+                query = query.Where(x => x.p.CategoryId == request.CategoryId);
 
             // 3. Paging 
             int totalRow = await query.CountAsync();
@@ -72,16 +63,11 @@ namespace eShopSolutionReact.Application.Catalog.Products
                 .Select(x => new ProductViewModel()
                 {
                     Id = x.p.Id,
-                    Name = x.pt.Name,
+                    Name = x.p.Name,
                     DateCreated = x.p.DateCreated,
-                    Description = x.pt.Description,
-                    Details = x.pt.Details,
-                    LanguageId = x.pt.LanguageId,
+                    Description = x.p.Description,
                     OriginalPrice = x.p.OriginalPrice,
                     Price = x.p.Price,
-                    SeoAlias = x.pt.SeoAlias,
-                    SeoDescription = x.pt.SeoDescription,
-                    SeoTitle = x.pt.SeoTitle,
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount
                 })
