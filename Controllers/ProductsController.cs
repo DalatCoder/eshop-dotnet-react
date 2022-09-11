@@ -2,15 +2,16 @@ using eShopSolutionReact.Application.Catalog.Products;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using eShopSolutionReact.Utilities.Http;
 
-namespace eShopSolution.BackendApi.Controllers
+namespace eShopSolutionReact.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly IPublicProductService _publicProductService;
-        public ProductController(IPublicProductService publicProductService)
+        public ProductsController(IPublicProductService publicProductService)
         {
             _publicProductService = publicProductService;
         }
@@ -19,7 +20,8 @@ namespace eShopSolution.BackendApi.Controllers
         public async Task<IActionResult> Get()
         {
             var products = await _publicProductService.GetAll();
-            return Ok(products);
+            var response = ResponseHelper.GetOkStructure(new { items = products, length = products.Count });
+            return Ok(response);
         }
     }
 }

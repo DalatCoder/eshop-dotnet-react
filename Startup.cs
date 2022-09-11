@@ -1,4 +1,5 @@
 using eShopSolutionReact.Application.Catalog.Products;
+using eShopSolutionReact.Application.Catalog.Categories;
 using eShopSolutionReact.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopSolution.BackendApi
+namespace eShopSolutionReact
 {
     public class Startup
     {
@@ -30,6 +31,7 @@ namespace eShopSolution.BackendApi
 
             // Declare Dependency Injections
             services.AddTransient<IPublicProductService, PublicProductService>();
+            services.AddTransient<IManageCategoriesService, ManageCategoriesService>();
 
             services.AddControllersWithViews();
         }
