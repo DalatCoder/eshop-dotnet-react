@@ -13,7 +13,7 @@ namespace eShopSolutionReact.EF.Entities
         public decimal Price { set; get; }
         public DateTimeOffset DateCreated { get; set; }
 
-        public Product Product { get; set; }
-        public AppUser AppUser { get; set; }
+        public Product? Product { get; set; }
+        public AppUser? AppUser { get; set; }
     }
 }
